@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/vue-material.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/theme/default-dark.css">
+
+
+
+  <script src="%% url_for('static', filename='js/jquery-3.2.1.js') %%"></script>
+
+  <link rel="stylesheet" href="%%  url_for('static', filename='css/styles.css') %%">
+
+  <script type=text/javascript>  $SCRIPT_ROOT = %% request.script_root|tojson|safe %%;</script>
+</head>
+
+<body >
+
+  <h1 style="margin-top: 8vh; padding-bottom: 3vh; margin-left: 15vw;">Your passwords</h1>
+
+  <!-- <div id="app" class="md-layout">
+  <div  id="buttons" class="md-layout-item" style="margin-left:10vw;"> -->
+  <div  id="buttons" style="margin-left:16vw; padding-bottom: 3vh;">
+    <md-button class="md-accent md-raised md-icon-button " onclick="window.location='/new_password_page'">
+      <md-icon class="md-primary">add</md-icon>
+      <md-tooltip class="tool" md-direction="top">Add password</md-tooltip>
+    </md-button>
+
+
+    <md-button class="md-accent md-raised md-icon-button " onclick="saveToArduino()" >
+      <md-icon class="md-primary">check_circle</md-icon>
+      <md-tooltip class="tool" md-direction="top" >Upload to gadget</md-tooltip>
+    </md-button>
+
+    <!-- <md-button class="md-accent md-raised md-icon-button " >
+      <md-icon class="md-primary">cloud_upload</md-icon>
+      <md-tooltip class="tool" md-direction="top">Backup in pwdgadget.tech</md-tooltip>
+    </md-button> -->
+
+  </div>
+
+  <!-- <div class="md-layout-item" style="margin-right:10vw;"> -->
+  <div style="margin-right:15vw; margin-left:15vw;">
+    <md-list id="pwdlist" class="md-triple-line">
+
+      <div v-if="passwords.length===0">
+        <md-empty-state
+        md-icon="queue"
+        md-label="You have no saved passwords"
+        md-description="Add your first password by pressing the button below.">
+        <md-button  class="md-accent md-raised md-icon-button " >
+          <md-icon class="md-primary" onclick="newPassword();">add</md-icon>
+          <md-tooltip class="tool" md-direction="top">Add password</md-tooltip>
+        </md-button>
+      </md-empty-state>
+    </div>
+      <!-- Item 1       -->
+      <md-list-item  v-for= "password in passwords" :key="password.name">
+        <md-avatar class="md-avatar-icon md-primary">{{ password.name.charAt(0) }}</md-avatar>
+
+        <!-- <md-avatar v-if="today-passwords.lastUpdate>===0" class="md-avatar-icon md-primary">{{ password.name.charAt(0) }}</md-avatar>
+        <md-avatar v-else class="md-avatar-icon ">{{ password.name.charAt(0) }}</md-avatar> -->
+        <!-- Or extract favicon from website <link rel="icon" href="/favicon.png" /> -->
+
+
+        <div class="md-list-item-text">
+          <span>{{ password.name }}</span>
+          <span>{{ password.link }}</span>
+          <p>{{ password.lastUpdate }}</p>
+        </div>
+
+
+        <md-speed-dial md-direction="bottom">
+          <md-speed-dial-target>
+            <md-button class="md-icon-button" v-bind:onclick="'editPassword(`'+ password.name + '`)'">
+              <!-- <md-tooltip class="tool" md-direction="left">Edit details</md-tooltip> -->
+              <md-icon >edit</md-icon>
+            </md-button>
+          </md-speed-dial-target>
+
+          <md-speed-dial-content>
+            <!-- <md-button class="md-icon-button">
+              <md-tooltip class="tool" md-direction="left">Re-generate password</md-tooltip>
+              <md-icon>settings_backup_restore</md-icon>
+            </md-button> -->
+
+            <md-button v-bind:onclick="'deletePassword(`'+ password.name + '`)'" class="md-icon-button">
+              <!-- <md-tooltip class="tool" md-direction="left">Delete</md-tooltip> -->
+              <md-icon>delete</md-icon>
+            </md-button>
+          </md-speed-dial-content>
+        </md-speed-dial>
+      </md-list-item>
+      <md-divider class="md-inset"></md-divider>
+
+    </md-list>
+
+  </div>
+</div>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-material@beta"></script>
+<script src="%% url_for('static', filename='js/home.js') %%"></script>
+
+</body>
+
+
+</html>

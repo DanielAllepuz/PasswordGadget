@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Edit password</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/vue-material.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/theme/default-dark.css">
+  <script src="%% url_for('static', filename='js/jquery-3.2.1.js') %%"></script>
+  <script type=text/javascript>  $SCRIPT_ROOT = %% request.script_root|tojson|safe %%;</script>
+
+</head>
+
+<body>
+  <!-- <template> -->
+  <div style="width: 70vw; margin: auto; padding-top: 10vh;">
+    <div id="form">
+      <h1>You are editing <i>{{ oldName }}</i></h1>
+      <md-field>
+        <label>Name</label>
+        <md-input v-model="name"></md-input>
+      </md-field>
+
+      <md-field>
+        <label>Link</label>
+        <md-input v-model="link"></md-input>
+        <span class="md-helper-text">Optional</span>
+      </md-field>
+
+
+      <md-field>
+        <label>Password</label>
+        <md-input type ="password" v-model="password"></md-input>
+        <span class="md-helper-text">Enter or generate randomly</span>
+        <md-button class="md-primary md-raised md-icon-button" onclick="generatePassword();" style="margin-bottom:7px; margin-right: 40px">
+          <md-icon class="md-primary">settings_backup_restore</md-icon>
+          <md-tooltip class="tool" md-direction="top">Randomly generate</md-tooltip>
+        </md-button>
+      </md-field>
+    </div>
+    <!-- Save last update on dictionary -->
+
+    <!-- Generate password and save it on dictionary -->
+
+
+    <div  id="buttons" style="float: right;">
+      <md-button  class="md-accent md-raised md-icon-button " >
+        <md-icon class="md-primary" onclick="window.location.href='/'">cancel</md-icon>
+        <md-tooltip class="tool" md-direction="top">Cancel</md-tooltip>
+      </md-button>
+
+      <md-button  class="md-accent md-raised md-icon-button " >
+        <md-icon class="md-primary" onclick="savePassword()">done</md-icon>
+        <md-tooltip class="tool" md-direction="top">Done</md-tooltip>
+      </md-button>
+
+
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vue-material@beta"></script>
+  <script src="%% url_for('static', filename='js/edit.js') %%"></script>
+
+
+
+</body>
+</html>
